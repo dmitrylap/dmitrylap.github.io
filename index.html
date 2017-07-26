@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="prism.css" rel="stylesheet">
+    <link href="csss/slideshow.css" rel="stylesheet">
+    <link href="csss/reusable.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+    <header class="slide title">
+        <figure>
+            <h1>ECMAScript 6</h1>
+            <p class="tagline">Modern Javascript features</p>
+        </figure>
+    </header>
+    <section class="slide dont-resize">
+        <h1>
+            Why do we need it?
+        </h1>
+        <figure>
+            <h2>Regular ECMAScript 5</h2>
+            <pre class="language-js">
+        <code>
+var double = function double() {
+  var a = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+  var b = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+  return a * b;
+};
+        </code>
+        </pre>
+        </figure>
+    </section>
+    <section class="slide">
+        <h1>
+            Why do we need it?
+        </h1>
+        <h2>ECMAScript 6</h2>
+        <pre class="language-js">
+            <code>
+                const double = (a = 0, b = 0) => a * b;
+            </code>
+        </pre>
+    </section>
+    <section class="slide inverse darker dont-resize">
+        <h1>History</h1>
+        <figure>
+            <ul>
+                <li>Initial release - 1995</li>
+                <li>ECMAScript - 1996</li>
+                <li>ECMAScript 3 – 1999</li>
+                <li>ECMA Script 5 – 2009</li>
+                <li>ES.Harmony – 2012</li>
+                <li>ES6/ES2015 – 2015</li>
+            </ul>
+        </figure>
+    </section>
+    <section class="slide">
+        <h1>Probably most used thing</h1>
+        <pre class="language-js delayed">
+            <code>
+                var a = 1;
+                function four() {
+                    if (true) {
+                        var a = 4;
+                    }
+                    alert(a); // alerts '4', not the global value of '1'
+                }
+            </code>
+        </pre>
+    </section>
+    <section class="slide">
+        <h1>ES6 way</h1>
+        <pre class="language-js">
+            <code>
+                let a = 1;
+                function four() {
+                    if (true) {
+                        let a = 4;
+                    }
+                    alert(a); // alerts '1'
+                }
+            </code>
+        </pre>
+    </section>
+    <section class="slide">
+        <h1>Constant variables</h1>
+        <pre class="language-js">
+            <code>
+                const foo = {bar: 10};
+                foo = {baz: 100}; // Error
+                foo.bar = 1000; // Works just fine
+            </code>
+        </pre>
+    </section>
+    <section class="slide">
+        <h1>var, let or const?</h1>
+        <figure>
+            <p class="delayed">
+                Keep things simple. In the context of identifiers, that means that a single identifier should only be used to represent a single concept.
+            </p>
+            <p class="delayed">
+                `const` means that the identifier can’t be reassigned. 
+            </p>
+            <p class="delayed">
+                `let`, is a signal that the variable may be reassigned, such as a counter in a loop, or a value swap in an algorithm.
+            </p>
+            <p class="delayed">
+                `var` is now the weakest signal available when you define a variable in JavaScript.
+            </p>
+        </figure>
+    </section>
+    <script type="text/javascript" src="prism.js"></script>
+    <script type="text/javascript" src="csss/slideshow.js"></script>
+</body>
+
+</html>
