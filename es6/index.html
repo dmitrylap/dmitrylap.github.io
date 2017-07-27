@@ -185,7 +185,7 @@ Prefixer.prototype.prefixArray = function (arr) {
             <pre class="language-js">
                 <code>
 Prefixer.prototype.prefixArray = function (arr) {
-    return arr.map(x => this.prefix + x;);
+    return arr.map(x => this.prefix + x);
 };            
                 </code>
             </pre>
@@ -199,6 +199,84 @@ Prefixer.prototype.prefixArray = function (arr) {
                 <li>Lacks its own this</li>
                 <li>Can't be used as a constructor</li>
             </ul>
+        </figure>
+    </section>
+    <section class="slide">
+        <h1>Default Parameters</h1>
+        <figure class="delayed">
+            <h2>ES5</h2>
+            <pre class="language-js">
+                <code>
+function f(x) {
+    var y = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 7;
+    var z = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 42;
+
+    return x + y + z;
+}
+                </code>
+            </pre>
+        </figure>
+        <figure class="delayed">
+            <h2>ES6</h2>
+            <pre class="language-js">
+                <code>
+function f (x, y = 7, z = 42) {
+    return x + y + z
+}
+                </code>
+            </pre>
+        </figure>
+    </section>
+    <section class="slide">
+        <h1>Rest Parameter</h1>
+        <figure class="delayed">
+            <h2>ES5</h2>
+            <pre class="language-js">
+                <code>
+function f(x, y) {
+  if ((arguments.length <= 2 ? 0 : arguments.length - 2) > 0) {
+    return (x + y) * (arguments.length <= 2 ? undefined : arguments[2]);
+  }
+}
+                </code>
+            </pre>
+        </figure>
+        <figure class="delayed">
+            <h2>ES6</h2>
+            <pre class="language-js">
+                <code>
+function f (x, y, ...a) {
+  if(a.length > 0) {
+    return (x + y) * a[0]
+  }
+}
+                </code>
+            </pre>
+        </figure>
+    </section>
+    <section class="slide">
+        <h1>Spread Operator</h1>
+        <figure class="delayed">
+            <h2>ES5</h2>
+            <pre class="language-js">
+                <code>
+[1, 2].concat(more);
+list.push.apply(list, [3, 4]);
+a = list[0], rest = list.slice(1);
+new (Date.bind.apply(Date, [null,2015,8,1]));
+                </code>
+            </pre>
+        </figure>
+        <figure class="delayed">
+            <h2>ES6</h2>
+            <pre class="language-js">
+                <code>
+[1, 2, ...more];
+list.push(...[3, 4]);
+[a, ...rest] = list;
+new Date(...[2015,8,1]);
+                </code>
+            </pre>
         </figure>
     </section>
     <script type="text/javascript" src="prism.js"></script>
