@@ -181,7 +181,7 @@ section figure {
 section figure ul {
     display: inline-block;
     text-align: initial;
-    margin-top: 40px;
+    margin: 40px 0;
     background-color: #FFF;
     padding: 40px 100px;
     transform: rotate(-1deg);

@@ -342,6 +342,7 @@ console.log(rest); // [3, 4, 5]
             </pre>
         </figure>
         <figure class="delayed">
+            <h2>Computed Properties</h2>
             <pre class="language-js">
                 <code>
 var obj = {
@@ -357,6 +358,7 @@ let obj = {
             </pre>
         </figure>
         <figure class="delayed">
+            <h2>Function Declaration</h2>
             <pre class="language-js">
                 <code>
 obj = {
@@ -373,6 +375,109 @@ obj = {
         </figure>
         </code>
         </pre>
+    </section>
+    <section class="slide">
+        <h1>ES5 Constructor Function</h1>
+        <pre class="language-js">
+            <code>
+function ConstructorCar () {}
+
+ConstructorCar.prototype.drive = function () {
+  console.log('Vroom!');
+};
+
+const car = new ConstructorCar();
+console.log(car.drive()); //Vroom!
+            </code>
+        </pre>
+    </section>
+    <section class="slide">
+        <h1>ES6 Class</h1>
+        <pre class="language-js">
+            <code>
+class ClassCar {
+  drive () {
+    console.log('Vroom!');
+  }
+}
+
+const car = new ClassCar();
+console.log(car.drive()); //Vroom!
+            </code>
+        </pre>
+    </section>
+    <section class="slide">
+        <h1>ES6 Class Inheritance</h1>
+        <pre class="language-js">
+            <code>
+class Animal { 
+  constructor(name) {
+    this.name = name;
+  }
+  
+  speak() {
+    console.log(this.name + ' makes a noise.');
+  }
+}
+
+class Dog extends Animal {
+  speak() {
+    console.log(this.name + ' barks.');
+  }
+}
+
+var d = new Dog('Mitzie');
+d.speak(); // Mitzie barks.
+            </code>
+        </pre>
+    </section>
+    <section class="slide">
+        <h1>Caveats</h1>
+        <figure>
+            <p class="delayed">
+                In JavaScript, any function can instantiate and return objects.
+                By using classes you become tied to the 'new' keyword that has to be used by all callers.
+            </p>
+            <p class="delayed">
+                The coupling between a child class and its parent is the tightest form of coupling in OO design. That’s the opposite of reusable, modular code.
+                Consider to avoid using the 'extends' keyword.
+            </p>
+            <p class="delayed">
+                Class doesn’t give you any power that isn’t already supplied by factory functions and the prototypal OO built into the language.
+            </p>
+        </figure>
+    </section>
+    <section class="slide">
+        <h1>Further Steps</h1>
+        <h2>Other Features</h2>
+        <figure>
+            <ul>
+                <li>Symbols</li>
+                <li>Iterators + For Of + Generators</li>
+                <li>Modules</li>
+                <li>Map + Set + WeakMap + WeakSet</li>
+                <li>Proxies</li>
+                <li>Math + Number + String + Object APIs</li>
+                <li>Tail Calls</li>
+            </ul>
+        </figure>
+    </section>
+    <section class="slide">
+        <h1>Further Steps</h1>
+        <h2>ES2016</h2>
+        <figure>
+            <ul>
+                <li>Array.prototype.includes</li>
+                <li>Exponentation Operator</li>
+            </ul>
+        </figure>
+        <h2>ES2017</h2>
+        <figure>
+            <ul>
+                <li>Async Functions</li>
+                <li>Shared Memory and Atomics</li>
+            </ul>
+        </figure>
     </section>
     <script type="text/javascript" src="prism.js"></script>
     <script type="text/javascript" src="csss/slideshow.js"></script>
