@@ -279,6 +279,58 @@ new Date(...[2015,8,1]);
             </pre>
         </figure>
     </section>
+
+
+    <section class="slide">
+        <h1>Destructuring</h1>
+        <h2>Object destructuring</h2>
+        <pre class="language-js">
+                <code>
+//ES5
+var obj = { first: 'Jane', last: 'Doe' };
+var f = obj.first,
+    l = obj.last;
+//ES6
+const obj = { first: 'Jane', last: 'Doe' };
+const {first: f, last: l} = obj;
+console.log(f, l) //Jane Doe
+                </code>
+            </pre>
+    </section>
+    <section class="slide">
+        <h1>Destructuring</h1>
+        <h2>Array destructuring</h2>
+        <pre class="language-js">
+                <code>
+//ES5
+var iterable = ['a', 'b'];
+var x = iterable[0],
+    y = iterable[1];
+//ES6
+const iterable = ['a', 'b'];
+const [x, y] = iterable;
+    // x = 'a'; y = 'b'
+                </code>
+            </pre>
+    </section>
+    <section class="slide">
+        <h1>Destructuring</h1>
+        <h2>Rest destructuring</h2>
+        <pre class="language-js">
+                <code>
+//ES5
+a = 1;
+b = 2;
+rest = [3, 4, 5];
+//ES6
+[a, b, ...rest] = [1, 2, 3, 4, 5];
+console.log(a); // 1
+console.log(b); // 2
+console.log(rest); // [3, 4, 5]
+                </code>
+            </pre>
+    </section>
+
     <script type="text/javascript" src="prism.js"></script>
     <script type="text/javascript" src="csss/slideshow.js"></script>
 </body>
