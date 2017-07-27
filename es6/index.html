@@ -101,10 +101,11 @@ var double = function double() {
         <h1>var, let or const?</h1>
         <figure>
             <p class="delayed">
-                Keep things simple. In the context of identifiers, that means that a single identifier should only be used to represent a single concept.
+                Keep things simple. In the context of identifiers, that means that a single identifier should only be used to represent a
+                single concept.
             </p>
             <p class="delayed">
-                `const` means that the identifier can’t be reassigned. 
+                `const` means that the identifier can’t be reassigned.
             </p>
             <p class="delayed">
                 `let`, is a signal that the variable may be reassigned, such as a counter in a loop, or a value swap in an algorithm.
@@ -113,6 +114,90 @@ var double = function double() {
                 `var` is now the weakest signal available when you define a variable in JavaScript.
             </p>
         </figure>
+    </section>
+    <section class="slide">
+        <h1>
+            How to define an anonymous function?
+        </h1>
+        <pre class="language-js">
+            <code>
+var self = this;
+this.nums.forEach(function (v) {
+    if (v % 5 === 0)
+        self.fives.push(v);
+});
+            </code>
+        </pre>
+    </section>
+    <section class="slide">
+        <h1>New Arrow Functions</h1>
+        <pre class="language-js">
+            <code>
+// Before...
+var es5OddNumbers = numbers.filter(function(number) {
+  return number % 2;
+});
+
+// After...
+const es6OddNumbers = numbers.filter(number => number % 2);
+            </code>
+        </pre>
+    </section>
+    <section class="slide">
+        <h1>Usages</h1>
+        <figure class="delayed">
+            <h2>Method functions</h2>
+            <pre class="language-js">
+            <code>
+const double = x => x * 2;
+const arr = [1, 2, 3];
+arr.map(double).map(double); // [4, 8, 12]
+            </code>
+        </pre>
+        </figure>
+        <figure class="delayed">
+            <h2>Callbacks</h2>
+            <pre class="language-js">
+                <code>
+const processFile = (err, data) => err ? console.error(err) : console.log(data.toString());
+fs.readFile('input.txt', processFile);
+                </code>
+            </pre>
+        </figure>
+    </section>
+    <section class="slide">
+        <h1>How to deal with 'this'?</h1>
+        <figure class="delayed">
+            <h2>ES5 Way</h2>
+            <pre class="language-js">
+                <code>
+Prefixer.prototype.prefixArray = function (arr) {
+    var that = this;
+    return arr.map(function (x) {
+        return that.prefix + x;
+    });
+};
+                </code>
+            </pre>
+        </figure>
+        <figure class="delayed">
+            <h2>ES6 Way</h2>
+            <pre class="language-js">
+                <code>
+Prefixer.prototype.prefixArray = function (arr) {
+    return arr.map(x => this.prefix + x;);
+};            
+                </code>
+            </pre>
+        </figure>
+    </section>
+    <section class="slide">
+        <h1>Conclusion</h1>
+        <ul>
+            <li>Short concise syntax</li>
+            <li>Lacks its own this</li>
+            <li>Can't be used as a constructor</li>
+        </ul>
     </section>
     <script type="text/javascript" src="prism.js"></script>
     <script type="text/javascript" src="csss/slideshow.js"></script>
