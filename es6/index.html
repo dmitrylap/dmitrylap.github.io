@@ -330,7 +330,50 @@ console.log(rest); // [3, 4, 5]
                 </code>
             </pre>
     </section>
+    <section class="slide">
+        <h1>Enhanced Object Literals</h1>
+        <h2>Property shorthand</h2>
+        <figure class="delayed">
+            <pre class="language-js">
+                <code>
+    obj = { x: x, y: y }; //ES5
+    obj = { x, y } //ES6
+                </code>
+            </pre>
+        </figure>
+        <figure class="delayed">
+            <pre class="language-js">
+                <code>
+var obj = {
+    foo: "bar"
+};
+obj[ "baz" + quux() ] = 42; //ES5
 
+let obj = {
+    foo: "bar",
+    [ "baz" + quux() ]: 42 //ES6
+}
+                </code>
+            </pre>
+        </figure>
+        <figure class="delayed">
+            <pre class="language-js">
+                <code>
+obj = {
+    foo: function (a, b) { //ES5
+    }
+}
+
+obj = {
+    foo (a, b) { // ES6
+    }
+}
+                </code>
+            </pre>
+        </figure>
+        </code>
+        </pre>
+    </section>
     <script type="text/javascript" src="prism.js"></script>
     <script type="text/javascript" src="csss/slideshow.js"></script>
 </body>
