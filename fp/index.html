@@ -18,7 +18,133 @@
             <p class="tagline">Introducing to FP with js</p>
         </figure>
     </header>
-    
+    <section class="slide">
+        <h1>Basic Definitions</h1>
+        <p>Functional programming (often abbreviated FP) is the process of building software by composing pure functions, avoiding shared state, mutable data, and side-effects.</p>
+        <p class="delayed">
+            Functional programming is a programming paradigm. That means the way an application can be built and executed.
+        </p>
+        <p class="delayed">
+            It’s the process of building software by composing pure functions, avoiding shared state, mutable data and side-effects.
+        </p>
+        <p class="delayed">
+            It's declarative rather then imperative.
+        </p>
+    </section>
+    <section class="slide">
+        <h1>Advantages</h1>
+        <figure>
+            <h2>Concise</h2>
+            <pre>
+                <code>
+const double = x => x * 2;
+const trace = x => {console.log(x); return x;}
+const doubleWithTrace = compose(double, trace);
+
+const arr = [1, 2, 3];
+
+const newArr = arr.map(doubleWithTrace); // 1, 2, 3
+
+newArr; // [2, 4, 6];
+                </code>
+            </pre>
+        </figure>
+    </section>
+    <section class="slide">
+        <h1>Advantages</h1>
+        <figure>
+            <h2>Predictable</h2>
+            <pre>
+                <code>
+const wrap = x => ({num: x});
+const positive = x => x >= 0;
+
+const arr1 = [1, -2, 3];
+const arr2 = [...arr1];
+
+arr1.filter(positive).map(wrap); // [{num: 1}, {num: 3}];
+arr2.filter(positive).map(wrap); // [{num: 1}, {num: 3}];
+                </code>
+            </pre>
+        </figure>
+    </section>
+        <section class="slide">
+        <h1>Advantages</h1>
+        <figure>
+            <h2>Easier to test</h2>
+            <pre>
+                <code>
+const total = (acc, cur) => acc += cur;
+const average = arr => arr.reduce(0, total) / arr.length;
+
+assert.equal(10, average([15, 10, 5]));
+assert.equal(30, average([30]));
+assert.equal(0, average([]));
+                </code>
+            </pre>
+        </figure>
+        <p class="delayed">
+            Look, no boilerplate, no mocks.
+        </p>
+    </section>
+    <section class="slide">
+        <h1>Pure Functions</h1>
+        <figure>
+            <ul>
+                <li>Given the same input always returns the same output</li>
+                <li>Has no side-effects</li>
+                <li>Referential transparency</li>
+            </ul>
+        </figure>
+    </section>
+    <section class="slide">
+        <h1>Function Composition</h1>
+        <p>Process of combining of several functions in order to produce a new function or to perform some computation</p>
+        <pre>
+            <code>
+                const addOne = x => x + 1;
+                const double = x => x * 2;
+                const addOneAndDouble = x => double(addOne(x));
+
+                const arr = [1, 2, 3];
+                arr.map(addOneAndDouble); // [4, 6, 8]
+            </code>
+        </pre>
+    </section>
+    <section class="slide">
+        <h1>Function Composition</h1>
+        <p>Currying and partial application</p>
+        <pre>
+            <code>
+                const f1 = (a, b, c) => a * b * c;
+                f(1, 2, 3) // 6
+                
+                f2 = curry(f1); // Returns the curried function
+
+                f2(1) // Returns function with partial application of 1 argument
+                f2(1)(2) // Returns function with partial application of 2 arguments
+                f2(1)(2)(3); // 6
+            </code>
+        </pre>
+    </section>
+    <section class="slide">
+        <h1>Function Composition</h1>
+        <p>Compose or pipe</p>
+        <pre>
+            <code>
+                const names = ['John', 'James'];
+
+                const addPrefix = (prefix, x) => `${prefix}-${x}`; //Some external 3d party function
+
+                const toUpper = x => x.toUpperCase();
+                const addPrefixCurries = curry(addPrefix);
+
+                const processName = pipe(addPrefix('mr. '), toUpper); 
+
+                names.map(processName); // ['MR. JOHN', 'MR. JAMES'];
+            </code>
+        </pre>
+    </section>
     <script type="text/javascript" src="prism.js"></script>
     <script type="text/javascript" src="csss/slideshow.js"></script>
 </body>
