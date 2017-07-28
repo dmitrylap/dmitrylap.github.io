@@ -20,7 +20,8 @@
     </header>
     <section class="slide">
         <h1>Basic Definitions</h1>
-        <p>Functional programming (often abbreviated FP) is the process of building software by composing pure functions, avoiding shared state, mutable data, and side-effects.</p>
+        <p>Functional programming (often abbreviated FP) is the process of building software by composing pure functions, avoiding
+            shared state, mutable data, and side-effects.</p>
         <p class="delayed">
             Functional programming is a programming paradigm. That means the way an application can be built and executed.
         </p>
@@ -68,7 +69,7 @@ arr2.filter(positive).map(wrap); // [{num: 1}, {num: 3}];
             </pre>
         </figure>
     </section>
-        <section class="slide">
+    <section class="slide">
         <h1>Advantages</h1>
         <figure>
             <h2>Easier to test</h2>
@@ -137,11 +138,76 @@ assert.equal(0, average([]));
                 const addPrefix = (prefix, x) => `${prefix}-${x}`; //Some external 3d party function
 
                 const toUpper = x => x.toUpperCase();
-                const addPrefixCurries = curry(addPrefix);
+                const addPrefixCurried = curry(addPrefix);
 
                 const processName = pipe(addPrefix('mr. '), toUpper); 
 
                 names.map(processName); // ['MR. JOHN', 'MR. JAMES'];
+            </code>
+        </pre>
+    </section>
+    <section class="slide">
+        <h1>Shared State</h1>
+        <p>Any variable or object in a shared scope or being passed between scopes</p>
+        <pre>
+            <code>
+                const foo = {
+                    x: 1,
+                    incr() {
+                        this.x++;
+                    }
+                }
+
+                const f = obj => obj.x *= 2;
+            </code>
+        </pre>
+    </section>
+    <section class="slide">
+        <h1>Shared State</h1>
+        <p>FP approach is to derive new data from existing instead of using shared state</p>
+        <pre>
+            <code>
+                const arr1 = [1, 2, 3];
+                const arr2 = arr1.map(x => x);
+
+                arr1 === arr2; // false
+            </code>
+        </pre>
+    </section>
+    <section class="slide">
+        <h1>Shared State</h1>
+        <p>The problem with the shared state is the need to now every variable possible involved to predict the effect of a function.</p>
+        <p>There are other effects known as 'Race condition' and 'Timing dependency'.</p>
+        <pre>
+            <code>
+                const foo = {val: 3};
+                const incr = () => foo.val += 1;
+                const double = () => foo.val *= 2;
+
+                incr();
+                double(); // foo.val is 8
+
+                double();
+                incr(); // foo.val is 7
+
+            </code>
+        </pre>
+    </section>
+    <section class="slide">
+        <h1>Shared State</h1>
+        <p>With pure functions you always have the same output for the same input.</p>
+        <p>Functions are completely independent from other functions calls.</p>
+        <p>It can dramatically simplify refactoring and modifications.</p>
+        <pre>
+            <code>
+                const foo = {val: 3};
+                const incr = x => Object.assign({}, x, {val: x.val += 1});
+                const double = x => Object.assign({}, x, {val: x.val *= 2});
+
+                let boo = incr(double(foo)) // boo.val is 7
+
+                let boo = double(incr(foo)) // boo.val is 8
+
             </code>
         </pre>
     </section>
