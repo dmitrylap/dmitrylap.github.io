@@ -211,6 +211,90 @@ assert.equal(0, average([]));
             </code>
         </pre>
     </section>
+    <section class="slide">
+        <h1>Immutability</h1>
+        <p>Immutable object is an object that cannot be modified once it's created.</p>
+        <pre class="delayed">
+            <code>
+                // Standard mutating JavaScript Array push
+                const collection = ['ironMan'];
+                collection.push('captainAmerica');
+
+                collection //["ironMan", "captainAmerica"]
+
+                // Immutable.js non-mutating List.push
+                const collection = Immutable.List.of('ironMan');
+                const newCollection = collection.push('captainAmerica');
+                collection; //["ironMan"]
+                newCollection; //["ironMan", "captainAmerica"]
+            </code>
+        </pre>
+    </section>
+    <section class="slide">
+        <h1>State History</h1>
+        <p>Keeping data structures immutable allows us to have a state history.</p>
+        <pre class="delayed">
+            <code>
+                const setAvatar = (avatar, state) => Object.apply({}, state, {avatar});
+                const setAvatarWithHistory = flow(setAvatar, history.add);
+
+                const initialState = {currentUser: {name: 'James', avatar: 'default.png'}};
+                const newState = setAvatarWithHistory(john.png', initialState);
+                //...
+                const prevState = history.undo();
+                prevState === initialState; // true
+            </code>
+        </pre>
+    </section>
+    <section class="slide">
+        <h1>Performance Optimizations</h1>
+        <h2>Object copying with Object.assign</h2>
+        <img src="https://cdn-images-1.medium.com/max/800/1*3sdPEw6Kh4-y141HQjCEyg.png" alt="regular object copying" />
+        <p>When you clone an object, JavaScript has to copy every property over so that these two objects become totally separated.</p>        
+    </section>
+    <section class="slide">
+        <h1>Performance Optimizations</h1>
+        <h2>Trie data sctructures</h2>
+        <p>All updates return new values, but internally structures are shared to drastically reduce memory usage (and GC thrashing). This means that if you append to a vector with 1000 elements, it does not actually create a new vector 1001-elements long. Most likely, internally only a few small objects are allocated.</p>
+        <img src="https://cdn-images-1.medium.com/max/800/1*7Ra2dxyg2-4f9IwsBE2ReQ.png" />
+    </section>
+    <section class="slide">
+        <h1>Higher Order Functions</h1>
+        <p>A higher order function is any function which takes a function as an argument, returns a function, or both.</p>
+        <figure class="delayed">
+            <p>Higher order functions are often used to:</p>
+            <ul>
+                <li>Abstract or isolate actions, effects, or async flow control using callback functions, promises, etc…</li>
+                <li>Create utilities which can act on a wide variety of data types</li>
+                <li>Partially apply a function to its arguments or create a curried function for the purpose of reuse or function composition</li>
+                <li>Take a list of functions and return some composition of those input functions</li>
+            </ul>
+        </figure>
+    </section>
+    <section class="slide">
+        <h1>Declarative vs Imperative</h1>
+        <p>Imperative programs spend lines of code describing the specific steps used to achieve the desired results — the flow control: How to do things.</p>
+        <p class="delayed">Declarative programs abstract the flow control process, and instead spend lines of code describing the data flow: What to do. The how gets abstracted away.</p>
+        <pre class="delayed">
+            <code>
+                const filterImperative = (arr, starts) => { // imperative
+                    const result = [];
+
+                    for(var i = 0; i < arr.length; i ++) {
+                        if(arr[i].startsWith(starts)) {
+                            result.push(arr[i]);
+                        }
+                    }
+                    return result;
+                }
+
+                const filterDeclarative = starts => s => s.startsWith(starts);
+
+                const filtered = arr.filter(filterDeclrative('aaa')); // declarative
+
+            </code>
+        </pre>
+    </section>
     <script type="text/javascript" src="prism.js"></script>
     <script type="text/javascript" src="csss/slideshow.js"></script>
 </body>
