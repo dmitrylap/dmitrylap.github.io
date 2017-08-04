@@ -44,6 +44,85 @@
                 <li>Compare it with the actual one.</li>
             </ul>
         </figure>
+        <p class="delayed">Your test messages should be clear enough to use them as bug reports.</p>
+    </section>
+    <section class="slide">
+        <h1>Unit Test Structure</h1>
+        <figure>
+            <ul>
+                <li>Test Setup</li>
+                <li>Calling the testing method</li>
+                <li>Assertions</li>
+            </ul>
+        </figure>
+    </section>
+    <section class="slide">
+        <h1>Test Runners</h1>
+        <p>
+            Test runner is a tool that allows you to run your tests, define setups and retrieve output.
+        </p>
+        <figure class="delayed">
+            <ul>
+                <li>Mocha</li>
+                <li>Tape</li>
+                <li>Jasmine</li>
+            </ul>
+        </figure>
+    </section>
+    <section class="slide">
+        <h1>Example of a Test</h1>
+        <pre>
+            <code>
+                const test = require('tape');
+
+                test('Assertions with tape.', assert => {
+                    const expected = 'something to test';
+                    const actual = 'sonething to test';
+
+                    assert.equal(actual, expected,
+                        'Given two mismatched values, .equal() should produce a nice bug report');
+
+                    assert.end();
+                });
+            </code>
+        </pre>
+        <img class="delayed" src="test1.png" />
+    </section>
+    <section class="slide">
+        <h1>Spies</h1>
+        <p>A test spy is a function that records arguments, return value, the value of this and exception thrown (if any) for all its calls.</p>
+        <pre>
+            <code>
+                const callback = sinon.spy();
+                PubSub.subscribe("message", callback);
+
+                PubSub.publishSync("message");
+
+                assertTrue(callback.called);
+            </code>
+        </pre>
+    </section>
+    <section class="slide">
+        <h1>Stubs</h1>
+        <p>Test stubs are functions (spies) with pre-programmed behavior.</p>
+        <p>Use a stub when you want to:</p>
+        <p class="delayed">
+            Control a method’s behavior from a test to force the code down a specific path. Examples include forcing a method to throw an error in order to test error handling.
+        </p>
+        <p class="delayed">
+            When you want to prevent a specific method from being called directly (possibly because it triggers undesired behavior, such as a XMLHttpRequest or similar).
+        </p>
+        <pre class="delayed">
+            <code>
+                const callback = sinon.stub();
+                callback.withArgs(42).returns(1);
+                callback.withArgs(1).throws("TypeError");
+
+                callback(); // No return value, no exception
+                callback(42); // Returns 1
+                callback(1); // Throws TypeError
+            </code>
+        </pre>
     </section>
     <script type="text/javascript" src="prism.js"></script>
     <script type="text/javascript" src="csss/slideshow.js"></script>
