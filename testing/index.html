@@ -124,6 +124,64 @@
             </code>
         </pre>
     </section>
+    <section class="slide">
+        <h1>Mocks</h1>
+        <p>Mocks (and mock expectations) are fake methods (like spies) with pre-programmed behavior (like stubs) as well as pre-programmed expectations.</p>
+        <p>Mocks should only be used for the method under test. In every unit test, there should be one unit under test. If you want to control how your unit is being used and like stating expectations upfront (as opposed to asserting after the fact), use a mock.</p>
+        <pre class="delayed">
+            <code>
+                const myAPI = { method: function () {} };
+
+                const spy = sinon.spy();
+                const mock = sinon.mock(myAPI);
+                mock.expects("method").once().throws();
+
+                PubSub.subscribe("message", myAPI.method);
+                PubSub.subscribe("message", spy);
+                PubSub.publishSync("message", undefined);
+
+                mock.verify();
+                assert(spy.calledOnce);
+            </code>
+        </pre>
+    </section>
+    <section class="slide">
+        <h1>Caveats</h1>
+        <p class="delay">If you spend a lot of time making mocks and stubs that's a bad sign. Most likely you can greatly simplify both your app and your tests dividing them in more modular fashion.</p>
+        <p class="delay">Couple of mocks here and there are fine. You cannot get away from making some side-effects with fs or http modules.</p>
+        <p class="delay">Avoid sofisticated assertion expressions and keep your tests as simple as it's possible. You shouldn't spend a lot of your time doing tests.</p>
+        <p class="delay">Avoid setting up huge global contexts and share them between tests. It quickly becomes unmanagable and brings bugs that are not easy to catch.</p>
+        <p class="delay">Then simplier your tests are than easier people can understand and support them.</p>
+    </section>
+    <section class="slide">
+        <h1>Coverage</h1>
+        <p>In order to understand test coverage of your application you can use the tool named "istanbul" to generate a coverage report.</p>
+        <figure class="delayed">
+            <P>It supports: </p>
+            <ul>
+                <li>line coverage</li>
+                <li>statement coverage</li>
+                <li>branch coverage</li>
+                <li>function coverage</li>
+            </ul>
+        </figure>        
+    </section>
+    <section class="slide">
+        <h1>Coverage</h1>
+        <p>Sample Report</p>
+        <img src="test2.png" alt="Istanbul report example"/>
+    </section>
+    <section class="slide">
+        <h1>Conclusion</h1>
+        <figure>
+            <ul>
+                <li>Test runner to run a test.</li>
+                <li>Assertion library to write conditions.</li>
+                <li>Mocking library to make spies, stubs and mocks.</li>
+                <li>Istanbul to check coverage.</li>
+            </ul>
+        </figure>
+    </section>
     <script type="text/javascript" src="prism.js"></script>
     <script type="text/javascript" src="csss/slideshow.js"></script>
 </body>
