@@ -140,7 +140,7 @@ assert.equal(0, average([]));
                 const toUpper = x => x.toUpperCase();
                 const addPrefixCurried = curry(addPrefix);
 
-                const processName = pipe(addPrefix('mr. '), toUpper); 
+                const processName = pipe(addPrefixCurried('mr. '), toUpper); 
 
                 names.map(processName); // ['MR. JOHN', 'MR. JAMES'];
             </code>
@@ -294,6 +294,12 @@ assert.equal(0, average([]));
 
             </code>
         </pre>
+    </section>
+    <section class="slide">
+        <h1>Conclusion</h1>
+        <p>FP in a nutshell is avoiding side-effects and using function composition to build your application.</p>
+        <p>Javascript enables and encourages fp by its built-in features.</p>
+        <p>You also can use routines from lodash or ramda to simplify your code even more.</p>
     </section>
     <script type="text/javascript" src="prism.js"></script>
     <script type="text/javascript" src="csss/slideshow.js"></script>
