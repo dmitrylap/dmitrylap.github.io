@@ -25,12 +25,7 @@
         <p class="delayed">
             Functional programming is a programming paradigm. That means the way an application can be built and executed.
         </p>
-        <p class="delayed">
-            It’s the process of building software by composing pure functions, avoiding shared state, mutable data and side-effects.
-        </p>
-        <p class="delayed">
-            It's declarative rather then imperative.
-        </p>
+        <p class="delayed">JavaScript has the most important features needed for functional programming</p>
     </section>
     <section class="slide">
         <h1>Advantages</h1>
@@ -39,14 +34,10 @@
             <pre>
                 <code>
 const double = x => x * 2;
-const trace = x => {console.log(x); return x;}
-const doubleWithTrace = compose(double, trace);
 
 const arr = [1, 2, 3];
 
-const newArr = arr.map(doubleWithTrace); // 1, 2, 3
-
-newArr; // [2, 4, 6];
+const newArr = arr.map(double); // 2, 4, 6
                 </code>
             </pre>
         </figure>
@@ -57,14 +48,14 @@ newArr; // [2, 4, 6];
             <h2>Predictable</h2>
             <pre>
                 <code>
-const wrap = x => ({num: x});
+const double = x => x * 2;
 const positive = x => x >= 0;
 
 const arr1 = [1, -2, 3];
 const arr2 = [...arr1];
 
-arr1.filter(positive).map(wrap); // [{num: 1}, {num: 3}];
-arr2.filter(positive).map(wrap); // [{num: 1}, {num: 3}];
+arr1.filter(positive).map(double); // [2, 6];
+arr2.filter(positive).map(double); // [2, 6];
                 </code>
             </pre>
         </figure>
@@ -75,8 +66,7 @@ arr2.filter(positive).map(wrap); // [{num: 1}, {num: 3}];
             <h2>Easier to test</h2>
             <pre>
                 <code>
-const total = (acc, cur) => acc += cur;
-const average = arr => arr.reduce(0, total) / arr.length;
+const average = arr => arr.reduce(0, (acc, cur) => acc += cur) / arr.length;
 
 assert.equal(10, average([15, 10, 5]));
 assert.equal(30, average([30]));
@@ -84,9 +74,6 @@ assert.equal(0, average([]));
                 </code>
             </pre>
         </figure>
-        <p class="delayed">
-            Look, no boilerplate, no mocks.
-        </p>
     </section>
     <section class="slide">
         <h1>Pure Functions</h1>
@@ -113,17 +100,18 @@ assert.equal(0, average([]));
         </pre>
     </section>
     <section class="slide">
-        <h1>Function Composition</h1>
-        <p>Currying and partial application</p>
+        <h1>Currying</h1>
+        <p>Currying is a way of constructing functions that allows partial application of a function’s arguments. What this means is that you can pass all of the arguments a function is expecting and get the result, or pass a subset of those arguments and get a function back that’s waiting for the rest of the arguments.</p>
         <pre>
             <code>
+                const R = require('ramda');
                 const f1 = (a, b, c) => a * b * c;
                 f(1, 2, 3) // 6
                 
-                f2 = curry(f1); // Returns the curried function
+                const f2 = R.curry(f1); // Returns the curried function
 
-                f2(1) // Returns function with partial application of 1 argument
-                f2(1)(2) // Returns function with partial application of 2 arguments
+                f2(1) // Returns function with partial application of the first argument
+                f2(1)(2) // Returns function with partial application of first two arguments
                 f2(1)(2)(3); // 6
             </code>
         </pre>
@@ -133,14 +121,13 @@ assert.equal(0, average([]));
         <p>Compose or pipe</p>
         <pre>
             <code>
+                const R = require('ramda');
                 const names = ['John', 'James'];
 
-                const addPrefix = (prefix, x) => `${prefix}-${x}`; //Some external 3d party function
-
+                const addPrefix = (prefix, x) => `${prefix}-${x}`;
                 const toUpper = x => x.toUpperCase();
-                const addPrefixCurried = curry(addPrefix);
 
-                const processName = pipe(addPrefixCurried('mr. '), toUpper); 
+                const processName = R.pipe(R.curry(addPrefix)('mr. '), toUpper); 
 
                 names.map(processName); // ['MR. JOHN', 'MR. JAMES'];
             </code>
