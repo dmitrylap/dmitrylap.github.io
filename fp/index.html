@@ -283,6 +283,33 @@ assert.equal(0, average([]));
         </pre>
     </section>
     <section class="slide">
+        <h1>Declarative vs Imperative</h1>
+        <pre>
+            <code>
+                const filterImperative = (arr, starts) => { // imperative
+                    const result = [];
+
+                    for(var i = 0; i < arr.length; i ++) {
+                        if(arr[i].startsWith(starts)) {
+                            result.push(arr[i]);
+                        }
+                    }
+                    return result;
+                }
+            </code>
+        </pre>
+    </section>
+    <section class="slide">
+        <h1>Declarative vs Imperative</h1>
+        <pre>
+            <code>
+                const filterDeclarative = starts => s => s.startsWith(starts);
+
+                const filtered = arr.filter(filterDeclrative('aaa')); // declarative
+            </code>
+        </pre>
+    </section>
+    <section class="slide">
         <h1>Conclusion</h1>
         <p>FP in a nutshell is avoiding side-effects and using function composition to build your application.</p>
         <p>Javascript enables and encourages fp by its built-in features.</p>
