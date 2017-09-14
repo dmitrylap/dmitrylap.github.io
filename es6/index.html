@@ -489,13 +489,13 @@ not ${2 * a + b}.`);
         <h1>ES5 Constructor Function</h1>
         <pre class="language-js">
             <code>
-function ConstructorCar () {}
+function Car () {}
 
-ConstructorCar.prototype.drive = function () {
+Car.prototype.drive = function () {
   console.log('Vroom!');
 };
 
-const car = new ConstructorCar();
+const car = new Car();
 console.log(car.drive()); //Vroom!
             </code>
         </pre>
@@ -504,13 +504,13 @@ console.log(car.drive()); //Vroom!
         <h1>ES6 Class</h1>
         <pre class="language-js">
             <code>
-class ClassCar {
+class Car {
   drive () {
     console.log('Vroom!');
   }
 }
 
-const car = new ClassCar();
+const car = new Car();
 console.log(car.drive()); //Vroom!
             </code>
         </pre>
@@ -535,18 +535,23 @@ d.speak(); // Mitzie barks.
         </pre>
     </section>
     <section class="slide">
+        <h1>Js classes vs actual OOP</h1>
         <p>
             Classes at javascript don't mean the same thing as they do at Java or .Net.
         </p>
         <p>
-            They contain the same old prototype inheritance under the hood and basically become constructor functions.
+            They contain the same old prototypal inheritance under the hood and basically become constructor functions.
+            Prototypal inheritance is a separate toppic to cover.             
+        </p>
+        <p>
+            MDN is a good starting point to learn more: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain
         </p>
     </section>
     <section class="slide">
         <h2>ES6 class like this</h2>
         <figure>
-            <code>
                 <pre>
+                    <code>
                         class Shape {
                             constructor (id, x, y) {
                                 this.id = id
@@ -557,15 +562,15 @@ d.speak(); // Mitzie barks.
                                 this.y = y
                             }
                         }
+                    </code>
                 </pre>
-            </code>
         </figure>
     </section>
     <section class="slide">
         <h2>... is basically this</h2>
         <figure>
-            <code>
                 <pre>
+                    <code>
                         var Shape = function (id, x, y) {
                             this.id = id;
                             this.move(x, y);
@@ -574,8 +579,8 @@ d.speak(); // Mitzie barks.
                             this.x = x;
                             this.y = y;
                         };
+                    </code>
                 </pre>
-            </code>
         </figure>
     </section>
     <section class="slide">
@@ -636,6 +641,7 @@ fs.readFileAsync(myFile, 'utf8').then(function(txt) {
         </pre>
     </section>
     <section class="slide">
+        <h1>Finally</h1>
         <p>Sometimes there is the need to perform some actions regardless of the result.</p>
         <p>That's where 'finally' handler can be used.</p>
         <pre>

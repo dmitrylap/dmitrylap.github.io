@@ -191,7 +191,7 @@ section figure ul {
 section figure ul li {
     line-height: 90px;
     list-style-type: disc;
-    list-style-position: inside;
+    list-style-position: outside;
 }
 
 section p {
