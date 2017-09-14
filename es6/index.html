@@ -84,6 +84,7 @@ var double = function double() {
                     }
                     alert(a); // alerts '1'
                 }
+                alert(a); // alerts '1'
             </code>
         </pre>
     </section>
@@ -108,7 +109,7 @@ var double = function double() {
                 `const` means that the identifier can’t be reassigned.
             </p>
             <p class="delayed">
-                `let`, is a signal that the variable may be reassigned, such as a counter in a loop, or a value swap in an algorithm.
+                `let`, is a signal that the variable should be reassigned at some point, such as a counter in a loop, or a value swap in an algorithm.
             </p>
             <p class="delayed">
                 `var` is now the weakest signal available when you define a variable in JavaScript.
@@ -207,7 +208,7 @@ Prefixer.prototype.prefixArray = function (arr) {
             <h2>ES5</h2>
             <pre class="language-js">
                 <code>
-function f(x) {
+function summarize(x) {
     var y = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 7;
     var z = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 42;
 
@@ -220,7 +221,7 @@ function f(x) {
             <h2>ES6</h2>
             <pre class="language-js">
                 <code>
-function f (x, y = 7, z = 42) {
+function summarize (x, y = 7, z = 42) {
     return x + y + z
 }
                 </code>
@@ -233,7 +234,7 @@ function f (x, y = 7, z = 42) {
             <h2>ES5</h2>
             <pre class="language-js">
                 <code>
-function f(x, y) {
+function multiply(x, y) {
   if ((arguments.length <= 2 ? 0 : arguments.length - 2) > 0) {
     return (x + y) * (arguments.length <= 2 ? undefined : arguments[2]);
   }
@@ -245,7 +246,7 @@ function f(x, y) {
             <h2>ES6</h2>
             <pre class="language-js">
                 <code>
-function f (x, y, ...a) {
+function multiply (x, y, ...a) {
   if(a.length > 0) {
     return (x + y) * a[0]
   }
@@ -260,10 +261,8 @@ function f (x, y, ...a) {
             <h2>ES5</h2>
             <pre class="language-js">
                 <code>
-[1, 2].concat(more);
-list.push.apply(list, [3, 4]);
-a = list[0], rest = list.slice(1);
-new (Date.bind.apply(Date, [null,2015,8,1]));
+                        var params = [ "hello", true, 7 ]
+                        var other = [ 1, 2, ...params ] // [ 1, 2, "hello", true, 7 ]
                 </code>
             </pre>
         </figure>
@@ -271,28 +270,75 @@ new (Date.bind.apply(Date, [null,2015,8,1]));
             <h2>ES6</h2>
             <pre class="language-js">
                 <code>
-[1, 2, ...more];
-list.push(...[3, 4]);
-[a, ...rest] = list;
-new Date(...[2015,8,1]);
+                        var params = [ "hello", true, 7 ];
+                        var other = [ 1, 2 ].concat(params); // [ 1, 2, "hello", true, 7 ]                        
                 </code>
             </pre>
         </figure>
     </section>
-
-
+    <section class="slide">
+            <h1>Spread Operator</h1>
+            <figure class="delayed">
+                <h2>ES5</h2>
+                <pre class="language-js">
+                    <code>
+                            var params = [ "hello", true, 7 ];
+                            
+                            function someMath (x, y) {
+                                var a = Array.prototype.slice.call(arguments, 2);
+                                return (x + y) * a.length;
+                            };
+                            someMath.apply(undefined, [ 1, 2 ].concat(params)) === 9;
+                    </code>
+                </pre>
+            </figure>
+            <figure class="delayed">
+                <h2>ES6</h2>
+                <pre class="language-js">
+                    <code>
+                            var params = [ "hello", true, 7 ]
+                            
+                            function someMath (x, y, ...a) {
+                                return (x + y) * a.length
+                            }
+                            someMath(1, 2, ...params) === 9                      
+                    </code>
+                </pre>
+            </figure>
+        </section>
+        <section class="slide">
+                <h1>Spread Operator</h1>
+                <figure class="delayed">
+                    <h2>ES5</h2>
+                    <pre class="language-js">
+                        <code>
+                                var str = "foo";
+                                var chars = str.split(""); // [ "f", "o", "o" ]
+                        </code>
+                    </pre>
+                </figure>
+                <figure class="delayed">
+                    <h2>ES6</h2>
+                    <pre class="language-js">
+                        <code>
+                                var str = "foo"
+                                var chars = [ ...str ] // [ "f", "o", "o" ]                  
+                        </code>
+                    </pre>
+                </figure>
+            </section>
     <section class="slide">
         <h1>Destructuring</h1>
         <h2>Object destructuring</h2>
         <pre class="language-js">
                 <code>
 //ES5
-var obj = { first: 'Jane', last: 'Doe' };
-var f = obj.first,
-    l = obj.last;
+var user = { first: 'Jane', last: 'Doe' };
+var f = user.first,
+    l = user.last;
 //ES6
-const obj = { first: 'Jane', last: 'Doe' };
-const {first: f, last: l} = obj;
+const user = { first: 'Jane', last: 'Doe' };
+const {first: f, last: l} = user;
 console.log(f, l) //Jane Doe
                 </code>
             </pre>
@@ -303,12 +349,12 @@ console.log(f, l) //Jane Doe
         <pre class="language-js">
                 <code>
 //ES5
-var iterable = ['a', 'b'];
-var x = iterable[0],
-    y = iterable[1];
+var letters = ['a', 'b'];
+var x = letters[0],
+    y = letters[1];
 //ES6
-const iterable = ['a', 'b'];
-const [x, y] = iterable;
+const letters = ['a', 'b'];
+const [x, y] = letters;
     // x = 'a'; y = 'b'
                 </code>
             </pre>
@@ -333,41 +379,72 @@ console.log(rest); // [3, 4, 5]
     <section class="slide">
         <h1>Enhanced Object Literals</h1>
         <h2>Property shorthand</h2>
-        <figure class="delayed">
+        <figure>
             <pre class="language-js">
                 <code>
-    obj = { x: x, y: y }; //ES5
-    obj = { x, y } //ES6
+                
+    function(name, password) {
+        var user = {
+            name: name,
+            password: password
+        }
+    }
+    //ES5
                 </code>
             </pre>
         </figure>
-        <figure class="delayed">
+    </section>
+    <section class="slide">
+            <h1>Enhanced Object Literals</h1>
+            <h2>Property shorthand</h2>
+            <figure>
+                <pre class="language-js">
+                    <code>
+                    
+        function(name, password) {
+            var user = {
+                name,
+                password
+            }
+        }
+        //ES6
+                    </code>
+                </pre>
+            </figure>
+        </section>
+    <section class="slide">
+        <figure>
             <h2>Computed Properties</h2>
             <pre class="language-js">
                 <code>
+const getPropertyName = () => 'myProp';
+
 var obj = {
     foo: "bar"
 };
-obj[ "baz" + quux() ] = 42; //ES5
+
+obj[getPropertyName()] = 42; //ES5
 
 let obj = {
     foo: "bar",
-    [ "baz" + quux() ]: 42 //ES6
+    [getPropertyName()]: 42 //ES6
 }
                 </code>
             </pre>
         </figure>
-        <figure class="delayed">
+        </section>
+        <section class="slide">
+        <figure>
             <h2>Function Declaration</h2>
             <pre class="language-js">
                 <code>
-obj = {
-    foo: function (a, b) { //ES5
+var user = {
+    updateName: function (first, last) { //ES5
     }
 }
 
-obj = {
-    foo (a, b) { // ES6
+user = {
+    updateName (first, last) { // ES6
     }
 }
                 </code>
@@ -387,11 +464,13 @@ obj = {
 console.log('string text line 1\n' +
 'string text line 2');
 
-console.log('Fifteen is ' + (a + b) + ' and\nnot ' + (2 * a + b) + '.');
+console.log('Fifteen is ' + (a + b) + ' and\not ' + (2 * a + b) + '.');
                 </code>
             </pre>
         </figure>
-        <figure class="delay">
+    </section>
+    <section class="slide">
+        <figure >
             <h2>ES6</h2>
             <pre class="language-js">
                 <code>
@@ -441,13 +520,7 @@ console.log(car.drive()); //Vroom!
         <pre class="language-js">
             <code>
 class Animal { 
-  constructor(name) {
-    this.name = name;
-  }
-  
-  speak() {
-    console.log(this.name + ' makes a noise.');
-  }
+  //...
 }
 
 class Dog extends Animal {
@@ -460,6 +533,50 @@ var d = new Dog('Mitzie');
 d.speak(); // Mitzie barks.
             </code>
         </pre>
+    </section>
+    <section class="slide">
+        <p>
+            Classes at javascript don't mean the same thing as they do at Java or .Net.
+        </p>
+        <p>
+            They contain the same old prototype inheritance under the hood and basically become constructor functions.
+        </p>
+    </section>
+    <section class="slide">
+        <h2>ES6 class like this</h2>
+        <figure>
+            <code>
+                <pre>
+                        class Shape {
+                            constructor (id, x, y) {
+                                this.id = id
+                                this.move(x, y)
+                            }
+                            move (x, y) {
+                                this.x = x
+                                this.y = y
+                            }
+                        }
+                </pre>
+            </code>
+        </figure>
+    </section>
+    <section class="slide">
+        <h2>... is basically this</h2>
+        <figure>
+            <code>
+                <pre>
+                        var Shape = function (id, x, y) {
+                            this.id = id;
+                            this.move(x, y);
+                        };
+                        Shape.prototype.move = function (x, y) {
+                            this.x = x;
+                            this.y = y;
+                        };
+                </pre>
+            </code>
+        </figure>
     </section>
     <section class="slide">
         <h1>Caveats</h1>
@@ -499,8 +616,8 @@ function runSequentially (callback) {
                 </code>
             </pre>
         </figure>
-        <p class="delayed">It's not that easy to understand this, huh?</p>
-        <p class="delayed">Never use the nested callback approach to handle async node.js operations.</p>
+        <p class="delayed">It's not that easy to understand.</p>
+        <p class="delayed">Consider not using the nested callback approach to handle async node.js operations.</p>
     </section>
     <section class="slide">
         <h1>Promises</h1>
@@ -515,6 +632,25 @@ fs.readFileAsync(myFile, 'utf8').then(function(txt) {
 }).catch(function(err) {
     console.log(err);
 });
+            </code>
+        </pre>
+    </section>
+    <section class="slide">
+        <p>Sometimes there is the need to perform some actions regardless of the result.</p>
+        <p>That's where 'finally' handler can be used.</p>
+        <pre>
+            <code>
+                    function ajaxGetAsync(url) {
+                        return new Promise(function (resolve, reject) {
+                            var xhr = new XMLHttpRequest;
+                            xhr.addEventListener("error", reject);
+                            xhr.addEventListener("load", resolve);
+                            xhr.open("GET", url);
+                            xhr.send(null);
+                        }).finally(function() {
+                            $("#ajax-loader-animation").hide();
+                        });
+                    }
             </code>
         </pre>
     </section>
