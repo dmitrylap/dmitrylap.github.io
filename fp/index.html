@@ -49,13 +49,13 @@ const newArr = arr.map(double); // 2, 4, 6
             <pre>
                 <code>
 const double = x => x * 2;
-const positive = x => x >= 0;
+const dividableBy3 = x => x % 3 === 0;
 
 const arr1 = [1, -2, 3];
 const arr2 = [...arr1];
 
-arr1.filter(positive).map(double); // [2, 6];
-arr2.filter(positive).map(double); // [2, 6];
+arr1.filter(dividableBy3).map(double); // [6];
+arr2.filter(dividableBy3).map(double); // [6];
                 </code>
             </pre>
         </figure>
@@ -222,8 +222,10 @@ assert.equal(0, average([]));
         <p>Keeping data structures immutable allows us to have a state history.</p>
         <pre class="delayed">
             <code>
+                const R = require('ramda');
+
                 const setAvatar = (avatar, state) => Object.apply({}, state, {avatar});
-                const setAvatarWithHistory = flow(setAvatar, history.add);
+                const setAvatarWithHistory = R.compose(setAvatar, history.add);
 
                 const initialState = {currentUser: {name: 'James', avatar: 'default.png'}};
                 const newState = setAvatarWithHistory(john.png', initialState);
